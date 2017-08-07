@@ -1,0 +1,6 @@
+-   id: scalafmt
+    name: Scalafmt
+    description: Formats all scala and sbt files.
+    entry: scalafmt.sh
+    language: script
+    files: \.(scala|sbt)$
