@@ -75,7 +75,7 @@ function test_only() {
 }
 
 function server_running() {
-    lsof -ti :$SERVER_PORT >/dev/null 2>&1
+    lsof -ti tcp:$SERVER_PORT -sTCP:LISTEN >/dev/null 2>&1
     if [ $? -eq 0 ]; then
         return 0
     else
@@ -95,7 +95,10 @@ function wait_for_server() {
 }
 
 function kill_server() {
-    lsof -ti :$SERVER_PORT | xargs --no-run-if-empty kill -9
+    local lsof_res
+    if lsof_res=`lsof -ti tcp:8080 -sTCP:LISTEN`; then
+        kill -9 $lsof_res
+    fi
 }
 
 function start_server() {
