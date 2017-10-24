@@ -96,7 +96,7 @@ function wait_for_server() {
 
 function kill_server() {
     local lsof_res
-    if lsof_res=`lsof -ti tcp:8080 -sTCP:LISTEN`; then
+    if lsof_res=`lsof -ti tcp:$SERVER_PORT -sTCP:LISTEN`; then
         kill -9 $lsof_res
     fi
 }
