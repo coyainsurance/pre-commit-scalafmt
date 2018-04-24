@@ -17,7 +17,7 @@ Next, you should place the hook inside the `.pre-commit-hooks.yaml`. Minimal ver
   sha: master # you probably do not want to use latest version, but rather pin it to specific commit and update manually
   hooks:
   - id: scalafmt
-    args: [ ] # place your cmd line arguments here
+    args: [ -p9090, -t ] # run in server mode on port 9090 and pass `--test` to scalafmt; alternatively you can place here other supported cmdline arguments
 ```
 
 After that, you should run
@@ -57,4 +57,4 @@ Script has several options than can be passed using `args` array for the `pre-co
 
 - `-v $version` - forces to use specific (default=`1.4.0`) `scalafmt` version.
 
-It was successfully both on Linux distributions and MacOS.
+It was successfully tested both on Linux distributions and MacOS.
