@@ -1,7 +1,60 @@
 # Scalafmt hook for pre-commit
 
-After cloning the repo, please run:
+## Overview
+
+This is [pre-commit](https://pre-commit.com/) hook that runs [scalafmt](scalameta.org/scalafmt/)
+on changed `.scala` and `.sbt` files each time you commit them.
+
+## Getting Started
+
+You need to have [pre-commit](https://pre-commit.com/)
+(for installation guidelines please see its site)
+and bash installed first.
+
+Next, you should place the hook inside the `.pre-commit-hooks.yaml`. Minimal version can looks like this:
 ```
-pip install pre-commit # If not installed
-pre-commit install
+- repo: git@github.com:coyainsurance/pre-commit-scalafmt.git
+  sha: master # you probably do not want to use latest version, but rather pin it to specific commit and update manually
+  hooks:
+  - id: scalafmt
+    args: [ ] # place your cmd line arguments here
 ```
+
+After that, you should run
+```
+pre-commit install -f --install-hooks
+```
+or equivalent to install and/or update your hooks file.
+
+Then you should be ready to enjoy automatic checks if your Scala files are formatted accordingly.
+
+## Details
+
+Script has several options than can be passed using `args` array for the `pre-commit` hook configuration.
+
+- `-c $scalafmtConfig` sets the scalafmt config (default=`.scalafmt.conf`).
+
+- `-d $bootstrapDirectory` sets the bootstrap directory (default=`$HOME/.scalafmt`).
+
+  It is used to place `coursier` and `scalafmt` binaries for the first time this hook is run.  
+
+- `-p $port` - binds `nailgun` to the specified port. Implies the `-s` option.
+
+- `-s` - starts `scalafmt` in background using `nailgun`.
+
+  That should significantly speedup checking your files, as `scalafmt` is then already running in background
+  and JVM processes can take quite significant time to initialize.
+  The tradeoff is that you may sometimes need to commit again, as hook may fail due to connection problems
+  (apparently happens with long-enough running `nailgun` service).
+
+  You should also make sure to have recent enough `nailgun` version (`0.9.1` should do).
+  In case of older version you may simply get no response back.
+
+  Default port is specified by `$NAILGUN_PORT` environment variable if it exists. If not, `2113` is taken.
+  Alternatively one can use `-p` option to override the port.
+
+- `-t` - passes `--test` to `scalafmt`, that implies no mis-formatted file will be changed instead of returning `1` exit code on any.
+
+- `-v $version` - forces to use specific (default=`1.4.0`) `scalafmt` version.
+
+It was successfully both on Linux distributions and MacOS.
