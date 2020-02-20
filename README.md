@@ -57,4 +57,6 @@ Script has several options than can be passed using `args` array for the `pre-co
 
 - `-v $version` - forces to use specific (default=`1.4.0`) `scalafmt` version.
 
+- `-o $organisation` - forces to use specific (default=`com.geirsson`) `scalafmt` organisation.
+
 It was successfully tested both on Linux distributions and MacOS.

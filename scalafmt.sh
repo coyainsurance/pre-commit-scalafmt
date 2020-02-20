@@ -4,19 +4,23 @@ set -e
 
 BOOTSTRAP_DIR="$HOME/.scalafmt"
 SCALAFMT_VERSION="1.4.0"
+SCALAFMT_ORG="com.geirsson"
 SERVER=1
 SERVER_PORT="${NAILGUN_PORT:-2113}"
 CONFIG=".scalafmt.conf"
 TEST=1
 
 OPTIND=1
-while getopts "c:d:p:stv:" opt; do
+while getopts "c:d:o:p:stv:" opt; do
 	case $opt in
 		c)
 			CONFIG=$OPTARG
 			;;
 		d)
 			BOOTSTRAP_DIR=$OPTARG
+			;;
+		o)
+			SCALAFMT_ORG=$OPTARG
 			;;
 		p)
 			SERVER=0
@@ -123,12 +127,12 @@ if should_bootstrap; then
 
 	if is_server; then
 		$COURSIER_CMD bootstrap -f \
-			--standalone "com.geirsson:scalafmt-cli_2.12:$SCALAFMT_VERSION" \
+			--standalone "$SCALAFMT_ORG:scalafmt-cli_2.12:$SCALAFMT_VERSION" \
 			--main com.martiansoftware.nailgun.NGServer \
 			-o "$BOOTSTRAP_DIR/$SCALAFMT_VERSION/scalafmt_ng" >/dev/null
 	else
 		$COURSIER_CMD bootstrap -f \
-			--standalone "com.geirsson:scalafmt-cli_2.12:$SCALAFMT_VERSION" \
+			--standalone "$SCALAFMT_ORG:scalafmt-cli_2.12:$SCALAFMT_VERSION" \
 			--main org.scalafmt.cli.Cli \
 			-o "$BOOTSTRAP_DIR/$SCALAFMT_VERSION/scalafmt" >/dev/null
 	fi
