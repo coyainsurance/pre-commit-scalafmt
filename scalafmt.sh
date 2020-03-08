@@ -64,12 +64,12 @@ function is_server() {
 
 function should_bootstrap() {
 	if is_server; then
-		return $(cmd_not_exists "scalafmt_ng" \
+		(cmd_not_exists "scalafmt_ng" \
 			&& cmd_not_exists "$BOOTSTRAP_DIR/$SCALAFMT_VERSION/scalafmt_ng") \
 			|| version_neq "ng --nailgun-port $SERVER_PORT scalafmt"
 	else
-		return $(cmd_not_exists "scalafmt" || version_neq "scalafmt") \
-			&& $(cmd_not_exists "$BOOTSTRAP_DIR/$SCALAFMT_VERSION/scalafmt" \
+		(cmd_not_exists "scalafmt" || version_neq "scalafmt") \
+			&& (cmd_not_exists "$BOOTSTRAP_DIR/$SCALAFMT_VERSION/scalafmt" \
 				|| version_neq "$BOOTSTRAP_DIR/$SCALAFMT_VERSION/scalafmt")
 	fi
 }
