@@ -36,7 +36,7 @@ Script has several options than can be passed using `args` array for the `pre-co
 
 - `-d $bootstrapDirectory` sets the bootstrap directory (default=`$HOME/.scalafmt`).
 
-  It is used to place `coursier` and `scalafmt` binaries for the first time this hook is run.  
+  It is used to place `coursier` and `scalafmt` binaries for the first time this hook is run.
 
 - `-p $port` - binds `nailgun` to the specified port. Implies the `-s` option.
 
@@ -53,12 +53,12 @@ Script has several options than can be passed using `args` array for the `pre-co
   Default port is specified by `$NAILGUN_PORT` environment variable if it exists. If not, `2113` is taken.
   Alternatively one can use `-p` option to override the port.
 
-- `-S` allows you to set the Scala version for `scalafmt`, e.g. `-S2.12` or `-S2.13`.
+- `-S` allows you to set the Scala version for `scalafmt`, e.g. `-S2.12` or `-S2.13` (the default).
 
 - `-t` - passes `--test` to `scalafmt`, that implies no mis-formatted file will be changed instead of returning `1` exit code on any.
 
-- `-v $version` - forces to use specific (default=`1.4.0`) `scalafmt` version. **Note**: `1.4.0` is a significantly old version. Make sure to match this with the version you are using, e.g. `2.6.3`.
+- `-v $version` - forces to use specific (default=`2.6.3`) `scalafmt` version.
 
-- `-o $organisation` - forces to use specific (default=`com.geirsson`) `scalafmt` organisation. **Note**: if you are using a recent version (>= released 2.0) of `scalafmt`, you will want to set the organisation to `org.scalameta`.
+- `-o $organisation` - forces to use specific `scalafmt` organisation (default=`org.scalameta`). (The organisation before the release of 2.0 was `com.geirsson`.)
 
 It was successfully tested both on Linux distributions and MacOS.
