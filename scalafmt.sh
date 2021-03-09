@@ -116,7 +116,7 @@ if should_bootstrap; then
 	mkdir -p "$BOOTSTRAP_DIR/$SCALAFMT_VERSION"
 
 	if cmd_not_exists "coursier" && cmd_not_exists "$BOOTSTRAP_DIR/coursier"; then
-		curl -L -o "$BOOTSTRAP_DIR/coursier" https://git.io/vgvpD && chmod +x "$BOOTSTRAP_DIR/coursier" >/dev/null
+		curl -L -o "$BOOTSTRAP_DIR/coursier" https://git.io/coursier-cli && chmod +x "$BOOTSTRAP_DIR/coursier" >/dev/null
 	fi
 
 	if cmd_not_exists "coursier"; then
